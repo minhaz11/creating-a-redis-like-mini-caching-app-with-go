@@ -2,27 +2,33 @@ package main
 
 import (
 	"fmt"
-	"redis-clone/cache"
-	"time"
+	"net"
+	"github.com/minhaz11/cache"
 )
 
 func main() {
 	c := cache.NewCache("cache.json")
 
-	c.Set("name", "GoLang")
-	c.Set("version", "1.23", 10*time.Second)
+	ln, err := net.Listen("tcp", ":6369")
 
-	if value, ok := c.Get("name"); ok {
-		fmt.Println(value)
-	} else {
-		fmt.Println("key not found!")
+	if err != nil {
+		fmt.Println("Error starting server:", err.Error())
+		return
 	}
 
-	time.Sleep(12 * time.Second)
+	defer ln.Close()
 
-	if value, exists := c.Get("version"); exists {
-		fmt.Println("Value for 'version':", value)
-	} else {
-		fmt.Println("Key 'version' not found or expired")
+	fmt.Println("Cache server is listening on port 6369...")
+
+	for {
+		conn, err := ln.Accept()
+
+		if err != nil {
+			fmt.Println("Error accepting connection:", err.Error())
+			continue
+		}
+
+		go c.HandleConnection(conn)
+
 	}
 }

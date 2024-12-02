@@ -29,7 +29,7 @@ func NewCache(filePath string) *Cache {
 
 
 
-// Set cache
+
 func (c *Cache) Set(key, value string, ttl ...time.Duration) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
@@ -48,7 +48,7 @@ func (c *Cache) Set(key, value string, ttl ...time.Duration) {
 	}
 }
 
-// Get Cache
+
 func (c *Cache) Get(key string) (string, bool) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
@@ -69,7 +69,7 @@ func (c *Cache) Get(key string) (string, bool) {
 	return value, true
 }
 
-// Delete Cache
+
 func (c *Cache) Delete(key string) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
