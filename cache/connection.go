@@ -2,6 +2,7 @@ package cache
 
 import (
 	"bufio"
+	"fmt"
 	"net"
 )
 
@@ -19,6 +20,11 @@ func (c *Cache) HandleConnection(conn net.Conn) {
 
 		response := c.CommandParser(command)
 
-		conn.Write([]byte(response))
+		_, err = conn.Write([]byte(response))
+
+		if err != nil {
+			fmt.Println("Error writing response:", err)
+			return
+		}
 	}
 }

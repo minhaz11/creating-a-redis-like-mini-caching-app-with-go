@@ -26,7 +26,7 @@ func (c *Cache) CommandParser(command string) string {
 		if err != nil {
 			return err.Error()
 		}
-		return fmt.Sprintf("%\n", value)
+		return value
 
 	case "DEL":
 		key, err := parseDelCmd(c, segments)
