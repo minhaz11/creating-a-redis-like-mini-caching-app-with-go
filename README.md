@@ -21,12 +21,12 @@ This project is a simple in-memory key-value store with basic functionalities. I
 
 2. Build the project:
     ```sh
-    go build -o redis-clone main.go
+    go build -o 'folder name' main.go
     ```
 
 3. Run the server:
     ```sh
-    ./redis-clone
+    ./folder name
     ```
 
 ## Usage
