@@ -13,7 +13,7 @@ func (c *Cache) HandleConnection(conn net.Conn) {
 
 	for {
 		command, err := reader.ReadString('\n')
-
+	
 		if err != nil {
 			return
 		}

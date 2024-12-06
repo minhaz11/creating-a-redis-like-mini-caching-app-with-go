@@ -62,11 +62,92 @@ $ telnet localhost 6369
 Trying 127.0.0.1...
 Connected to localhost.
 Escape character is '^]'.
+
 SET foo bar
 OK Key 'foo' set successfully.
+
 GET foo
 bar
+
 EXPIRE foo 10s
 OK Key 'foo' expiration set to '10s'.
+
 GET foo
 bar
+
+##=======================================
+
+
+### Example JavaScript (Node.js) Client
+
+```javascript
+
+const net = require('net');
+
+const client = new net.Socket();
+client.connect(6369, '127.0.0.1', function() {
+    console.log('Connected to cache server');
+    client.write('SET foo bar 1005s\n');  
+});
+
+client.on('data', function(data) {
+    console.log('Received:', data.toString());
+   
+    client.write('GET foo\n');
+    
+});
+
+client.on('data', function(data) {
+    console.log('Received:', data.toString());
+
+    client.end();
+});
+
+client.on('close', function() {
+    console.log('Connection closed');
+});
+
+client.on('error', function(err) {
+    console.log('Error:', err);
+});
+
+````
+
+
+### Example Python Client
+
+```Python
+
+import socket
+
+# Create a socket object
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# Connect to the server on 127.0.0.1:6369
+client.connect(('127.0.0.1', 6369))
+
+# Send the SET command to the server
+print('Connected to cache server')
+client.sendall(b'SET foo bar 1005s\n')
+
+# Receive the response from the server
+data = client.recv(1024)
+print('Received:', data.decode())
+
+# Send the GET command to the server
+client.sendall(b'GET foo\n')
+
+# Receive the response from the server
+data = client.recv(1024)
+print('Received:', data.decode())
+
+# Close the connection
+client.close()
+print('Connection closed')
+
+```
+
+
+
+
+
