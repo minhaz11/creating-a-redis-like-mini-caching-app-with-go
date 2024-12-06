@@ -1,4 +1,4 @@
-# A simple Mini Cache Server
+# A Simple mini cache server with GoLang
 
 This project is a simple in-memory key-value store with basic functionalities. It supports commands like `SET`, `GET`, `DEL`, and `EXPIRE`.
 
