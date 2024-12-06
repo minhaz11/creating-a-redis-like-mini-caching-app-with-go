@@ -74,6 +74,7 @@ OK Key 'foo' expiration set to '10s'.
 
 GET foo
 bar
+```
 
 ##=======================================
 
@@ -111,7 +112,7 @@ client.on('error', function(err) {
     console.log('Error:', err);
 });
 
-````
+```
 
 
 ### Example Python Client
