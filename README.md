@@ -15,8 +15,8 @@ This project is a simple in-memory key-value store with basic functionalities. I
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/minhaz11/redis-clone.git
-    cd redis-clone
+    [git clone https://github.com/minhaz11/redis-clone.git](https://github.com/minhaz11/A-mini-caching-app-with-Go.git)
+    cd to cloned folder
     ```
 
 2. Build the project:
