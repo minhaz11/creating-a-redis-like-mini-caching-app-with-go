@@ -2,7 +2,7 @@
 
 This project is a simple in-memory key-value store with basic functionalities. It supports commands like `SET`, `GET`, `DEL`, and `EXPIRE`.
 
-NB: It only supports the string key, value currently.
+NB: It only supports only the string (key, value) currently.
 
 
 ## Getting Started
