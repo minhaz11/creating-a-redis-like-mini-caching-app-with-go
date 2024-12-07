@@ -20,14 +20,14 @@ NB: It only supports only the string (key, value) currently.
     cd to cloned folder
     ```
 
-2. Build the project:
+2. Build the project and run:
     ```sh
-    go build -o 'folder name' main.go
+    go build .
     ```
 
-3. Run the server:
+3. Or Run the server:
     ```sh
-    ./folder name
+     go run .
     ```
 
 ## Usage
