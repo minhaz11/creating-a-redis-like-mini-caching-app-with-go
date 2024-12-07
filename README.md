@@ -15,7 +15,8 @@ NB: It only supports only the string (key, value) currently.
 
 1. Clone the repository:
     ```sh
-    [git clone https://github.com/minhaz11/redis-clone.git](https://github.com/minhaz11/A-mini-caching-app-with-Go.git)
+    git clone https://github.com/minhaz11/A-mini-caching-app-with-Go.git
+
     cd to cloned folder
     ```
 
