@@ -2,17 +2,18 @@ package cache
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 	"time"
 )
 
 func (c *Cache) clearExpiredKeys() {
-	for {
-		time.Sleep(1 * time.Second)
+	ticker := time.NewTicker(1 * time.Second)
+	defer ticker.Stop()
 
+	for range ticker.C {
 		c.mu.Lock()
-
 		for k, exp := range c.expiration {
 			if time.Now().After(exp) {
 				delete(c.store, k)
@@ -49,7 +50,7 @@ func (c *Cache) saveToFile() {
 	}
 }
 
-func (c *Cache) loadFromFile() {
+func (c *Cache) loadFromFile() error {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
@@ -57,9 +58,9 @@ func (c *Cache) loadFromFile() {
 
 	if err != nil {
 		if !os.IsNotExist(err) {
-			fmt.Println("Error opening cache file:", err)
+			return errors.New("Error opening cache file.")
 		}
-		return
+		return errors.New(err.Error())
 	}
 
 	defer file.Close()
@@ -71,12 +72,13 @@ func (c *Cache) loadFromFile() {
 
 	decoder := json.NewDecoder(file)
 	if err = decoder.Decode(&data); err != nil {
-		fmt.Println("Error decoding cache file:", err)
-		return
+		return errors.New(err.Error())
 	}
 
 	c.store = data.Store
 	c.expiration = data.Expiration
+
+	return nil
 }
 
 
