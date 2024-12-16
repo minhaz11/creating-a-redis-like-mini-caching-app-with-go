@@ -2,33 +2,20 @@ package main
 
 import (
 	"fmt"
-	"net"
-	"github.com/minhaz11/cache"
+	"os"
+
+	"github.com/minhaz11/server"
 )
 
 func main() {
-	c := cache.NewCache("cache.json")
-
-	ln, err := net.Listen("tcp", ":6369")
-
+	server, err := server.NewServer()
 	if err != nil {
-		fmt.Println("Error starting server:", err.Error())
-		return
+		fmt.Println("Failed to create server:", err)
+		os.Exit(1)
 	}
 
-	defer ln.Close()
-
-	fmt.Println("Cache server is listening on port 6369...")
-
-	for {
-		conn, err := ln.Accept()
-
-		if err != nil {
-			fmt.Println("Error accepting connection:", err.Error())
-			continue
-		}
-
-		go c.HandleConnection(conn)
-
+	if err := server.Run(); err != nil {
+		server.Logger.Fatalf("Server error: %v", err)
+		os.Exit(1)
 	}
 }
